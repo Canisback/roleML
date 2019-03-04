@@ -46,3 +46,5 @@ Output :
 ```
 
 The output is a dictionary linking participantId to their role.
+
+The match needs to be at least 12 minutes long, an exception will be raised else.

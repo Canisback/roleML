@@ -95,6 +95,9 @@ def getStatsAt10(timeline):
 
 def predict(match, timeline):
     
+    if match["gameDuration"] < 720:
+        raise Exception("Match too short")
+    
     participantRoles = {}
     participantList = []
     
