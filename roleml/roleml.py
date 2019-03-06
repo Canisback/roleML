@@ -2,6 +2,7 @@ from sklearn.externals import joblib
 import numpy as np
 import matplotlib.path as mplPath
 import pandas as pd
+import os
 
 #Initializing all the roles accepted
 role_composition = set(["JUNGLE_NONE","TOP_SOLO","MIDDLE_SOLO","BOTTOM_DUO_CARRY","BOTTOM_DUO_SUPPORT"])
@@ -27,7 +28,7 @@ underUsedItems = {"BOTTOM_DUO_SUPPORT": ["1011", "1036", "1037", "1038", "1039",
 
 
 #Loading the model
-roleml_model = joblib.load("role_identification_model.sav")
+roleml_model = joblib.load(os.path.join(os.path.dirname(__file__), "role_identification_model.sav"))
 
 
 def getPositions(timeline):

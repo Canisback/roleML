@@ -2,7 +2,10 @@ from setuptools import setup, find_packages
 setup(
   name = 'roleml',
   packages = find_packages(),
-  version = '0.1.2',
+  package_data={
+    '': ['*.sav'],
+  },
+  version = '0.1.4',
   description = 'ML classifier for role in Riot API LoL matches',
   author = 'Canisback',
   author_email = 'canisback@gmail.com',
