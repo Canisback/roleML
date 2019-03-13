@@ -140,7 +140,7 @@ def get_most_frequent_lane(participants_positions):
     return most_frequent_lane
 
 
-def getLaneFrequencies(participants_positions):
+def get_lane_frequencies(participants_positions):
     lane_frequencies = {}
     for participant_id in participants_positions:
         lane_frequency = {"mid": 0, "top": 0, "bot": 0, "jungle": 0}
@@ -154,89 +154,88 @@ def getLaneFrequencies(participants_positions):
     return lane_frequencies
 
 
-def getStatsAt10(timeline):
+def get_stats_at_10(timeline):
     participant_frame = timeline['frames'][10]['participantFrames']
-    p = {}
+    stats_at_10 = {}
     for k in participant_frame:
         row = {
             "minionsKilled": participant_frame[k]["minionsKilled"],
             "jungleMinionsKilled": participant_frame[k]["jungleMinionsKilled"],
-            "jungleMinionRatio": participant_frame[k]["jungleMinionsKilled"] / (
-                        participant_frame[k]["minionsKilled"] + participant_frame[k]["jungleMinionsKilled"]) if
-            participant_frame[k]["minionsKilled"] > 0 else 0
+            "jungleMinionRatio": participant_frame[k]["jungleMinionsKilled"] /
+                                 (participant_frame[k]["minionsKilled"] + participant_frame[k]["jungleMinionsKilled"])
+            if participant_frame[k]["minionsKilled"] > 0 else 0
         }
-        p[k] = row
+        stats_at_10[k] = row
 
-    return p
+    return stats_at_10
 
 
 def predict(match, timeline):
     if match["gameDuration"] < 720:
         raise Exception("Match too short")
 
-    participant_list = []
+    participants_features_list = []
 
     # Get the players positions form the timeline
     players_positions = get_positions(timeline)
 
     player_most_frequent_lane = get_most_frequent_lane(players_positions)
-    player_lane_frequencies = getLaneFrequencies(players_positions)
+    player_lane_frequencies = get_lane_frequencies(players_positions)
 
-    player_stats = getStatsAt10(timeline)
+    player_stats = get_stats_at_10(timeline)
 
-    for p in match['participants']:
+    for participant in match['participants']:
 
-        participant = {}
+        participant_features = {}
 
-        participant_id = p["participantId"]
+        participant_id = participant["participantId"]
 
         lanes = ["jungle", "top", "mid", "bot"]
 
         # one hot encode positions
         for lane in lanes:
-            participant['most-frequent-' + lane] = 0
+            participant_features['most-frequent-' + lane] = 0
 
-        participant['most-frequent-' + player_most_frequent_lane[participant_id]] = 1
+        participant_features['most-frequent-' + player_most_frequent_lane[participant_id]] = 1
 
         # Lane frequency
-        participant = {**participant,
-                       **{"lane-frequency-" + k: v for k, v in player_lane_frequencies[participant_id].items()}}
+        participant_features.update({"lane-frequency-" + k: v for k, v in
+                                     player_lane_frequencies[participant_id].items()})
 
         # Init items lists
         for role in role_composition:
-            participant["has-item-overUsed-" + role] = 0
-            participant["has-item-mostlyUsed-" + role] = 0
-            participant["has-item-underUsed-" + role] = 0
+            participant_features["has-item-overUsed-" + role] = 0
+            participant_features["has-item-mostlyUsed-" + role] = 0
+            participant_features["has-item-underUsed-" + role] = 0
 
         # Get the item ID for each of the 7 slots and check if they are in one of the three items lists
         for i in range(0, 7):
-
             # Check if there is an item for the slot
-            if p['stats']['item' + str(i)] > 0:
+            if participant['stats']['item' + str(i)] > 0:
                 for role in role_composition:
 
-                    if str(p['stats']['item' + str(i)]) in overUsedItems[role]:
-                        participant["has-item-overUsed-" + role] = 1
+                    if str(participant['stats']['item' + str(i)]) in overUsedItems[role]:
+                        participant_features["has-item-overUsed-" + role] = 1
 
-                    if str(p['stats']['item' + str(i)]) in mostlyUsedItems[role]:
-                        participant["has-item-mostlyUsed-" + role] = 1
+                    if str(participant['stats']['item' + str(i)]) in mostlyUsedItems[role]:
+                        participant_features["has-item-mostlyUsed-" + role] = 1
 
-                    if str(p['stats']['item' + str(i)]) in underUsedItems[role]:
-                        participant["has-item-underUsed-" + role] = 1
+                    if str(participant['stats']['item' + str(i)]) in underUsedItems[role]:
+                        participant_features["has-item-underUsed-" + role] = 1
 
         # Summoner spells
-        participant.update(spells)
-        participant["spell-" + str(p["spell1Id"])] = 1
-        participant["spell-" + str(p["spell2Id"])] = 1
+        participant_features.update(spells)
+        participant_features["spell-" + str(participant["spell1Id"])] = 1
+        participant_features["spell-" + str(participant["spell2Id"])] = 1
 
         # Player stats
-        participant.update(player_stats[str(participant_id)])
+        participant_features.update(player_stats[str(participant_id)])
 
-        participant["participantId"] = participant_id
+        participant_features["participantId"] = participant_id
 
-        participant_list.append(participant)
+        participants_features_list.append(participant_features)
 
-    df = pd.DataFrame(participant_list)
+    df = pd.DataFrame(participants_features_list)
     df["role"] = roleml_model.predict(df.drop(["participantId"], axis=1))
 
     df = df.set_index(df["participantId"])
