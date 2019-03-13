@@ -6,6 +6,9 @@ import os
 
 # Initializing all the roles accepted
 role_composition = {"JUNGLE_NONE", "TOP_SOLO", "MIDDLE_SOLO", "BOTTOM_DUO_CARRY", "BOTTOM_DUO_SUPPORT"}
+clean_roles = {"JUNGLE_NONE": 'jungle', "TOP_SOLO": 'top', "MIDDLE_SOLO": 'mid',
+               "BOTTOM_DUO_CARRY": 'bot', "BOTTOM_DUO_SUPPORT": 'supp'}
+
 
 # Init spells
 spells = {'spell-21': 0, 'spell-1': 0, 'spell-14': 0, 'spell-3': 0, 'spell-4': 0, 'spell-6': 0, 'spell-7': 0,
@@ -242,15 +245,15 @@ def predict(match, timeline):
 
     participant_roles = df["role"].to_dict()
 
-    return participant_roles
+    return {k: clean_roles[participant_roles[k]] for k in participant_roles}
 
 
 def fix_and_augment_game_and_timeline(game, timeline):
-    true_positions = predict(game, timeline)
+    true_roles = predict(game, timeline)
 
     # First, set all roles properly so we know player's opponents
     for participant in game['participants']:
-        participant['role'] = true_positions[participant['participantId']]
+        participant['role'] = true_roles[participant['participantId']]
 
     # Second, add the diffs in the frames. We're not using the "deltas" since it's redundant info
     for participant in game['participants']:
