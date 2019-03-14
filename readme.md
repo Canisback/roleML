@@ -48,3 +48,26 @@ Output :
 The output is a dictionary linking participantId to their role.
 
 The match needs to be at least 12 minutes long, an exception will be raised else.
+
+### Options
+
+Fix match data according to the new participant roles : 
+```
+fixed_match, fixed_timeline = 
+	roleml.fix_and_augment_game_and_timeline(game, timeline)
+```
+Add role to participant and goldDiffPerMinDeltas to participant timeline : 
+```
+fixed_and_augmented_match, fixed_timeline = 
+	roleml.fix_and_augment_game_and_timeline(game, timeline, True)
+```
+Add diffs to each participant frame in timeline : 
+```
+fixed_match, fixed_and_augmented_timeline = 
+	roleml.fix_and_augment_game_and_timeline(game, timeline, False, True)
+```
+Fix and augment both : 
+```
+fixed_and_augmented_match, fixed_and_augmented_timeline = 
+	roleml.fix_and_augment_game_and_timeline(game, timeline, True, True)
+```

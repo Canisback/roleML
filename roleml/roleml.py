@@ -248,7 +248,7 @@ def predict(match, timeline):
     return {k: clean_roles[participant_roles[k]] for k in participant_roles}
 
 
-def fix_and_augment_game_and_timeline(game, timeline):
+def fix_and_augment_game_and_timeline(game, timeline, upgrade_participant=False, upgrade_timeline=False):
     true_roles = predict(game, timeline)
 
     # First, set all roles properly so we know player's opponents
@@ -265,20 +265,45 @@ def fix_and_augment_game_and_timeline(game, timeline):
             if opponent_id != participant_id and opponent['role'] == participant['role']:
                 opponent_found = True
                 break
-
+        
         if opponent_found is None:
             raise Exception('Player without opponent found')
+            
+        if not game['participants'][opponent_id-1]['participantId'] == opponent_id:
+            raise Exception('Opponent array detection screwed')
+        
+        participant_timeline = participant['timeline']
+        opponent_timeline = game['participants'][opponent_id-1]['timeline']
+        
+        for i in participant_timeline['csDiffPerMinDeltas']:
+            participant_timeline['csDiffPerMinDeltas'][i] = round( participant_timeline['creepsPerMinDeltas'][i] - opponent_timeline['creepsPerMinDeltas'][i], 2)
+        
+        for i in participant_timeline['xpDiffPerMinDeltas']:
+            participant_timeline['xpDiffPerMinDeltas'][i] = round( participant_timeline['xpPerMinDeltas'][i] - opponent_timeline['xpPerMinDeltas'][i], 2)
+        
+        for i in participant_timeline['damageTakenDiffPerMinDeltas']:
+            participant_timeline['damageTakenDiffPerMinDeltas'][i] = round( participant_timeline['damageTakenPerMinDeltas'][i] - opponent_timeline['damageTakenPerMinDeltas'][i], 2)
+        
+        if upgrade_participant:
+            participant_timeline['goldDiffPerMinDeltas'] = {}
+            for i in participant_timeline['goldPerMinDeltas']:
+                participant_timeline['goldDiffPerMinDeltas'][i] = round( participant_timeline['goldPerMinDeltas'][i] - opponent_timeline['goldPerMinDeltas'][i], 2)
+        
+        if upgrade_timeline:
+            for frame in timeline['frames']:
+                participant_frame = frame['participantFrames'][str(participant_id)]
+                opponent_frame = frame['participantFrames'][str(opponent_id)]
 
-        for frame in timeline['frames']:
-            participant_frame = frame['participantFrames'][str(participant_id)]
-            opponent_frame = frame['participantFrames'][str(opponent_id)]
+                participant_frame['totalGoldDiff'] = participant_frame['totalGold'] - opponent_frame['totalGold']
+                participant_frame['xpDiff'] = participant_frame['xp'] - opponent_frame['xp']
+                participant_frame['minionsKilledDiff'] = \
+                    participant_frame['minionsKilled'] - opponent_frame['minionsKilled']
+                participant_frame['jungleMinionsKilledDiff'] = \
+                    participant_frame['jungleMinionsKilled'] - opponent_frame['jungleMinionsKilled']
 
-            participant_frame['totalGoldDiff'] = participant_frame['totalGold'] - opponent_frame['totalGold']
-            participant_frame['xpDiff'] = participant_frame['xp'] - opponent_frame['xp']
-            participant_frame['minionsKilledDiff'] = \
-                participant_frame['minionsKilled'] - opponent_frame['minionsKilled']
-            participant_frame['jungleMinionsKilledDiff'] = \
-                participant_frame['jungleMinionsKilled'] - opponent_frame['jungleMinionsKilled']
-
+    if not upgrade_participant:
+        for participant in game['participants']:
+            del(participant['role'])
+    
     return game, timeline
 
