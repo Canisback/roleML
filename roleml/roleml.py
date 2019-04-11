@@ -275,13 +275,17 @@ def fix_and_augment_game_and_timeline(game, timeline, upgrade_participant=False,
         participant_timeline = participant['timeline']
         opponent_timeline = game['participants'][opponent_id-1]['timeline']
         
-        for i in participant_timeline['csDiffPerMinDeltas']:
+        # Reseting or creating stats per min fields
+        participant_timeline['csDiffPerMinDeltas'] = {}
+        for i in participant_timeline['creepsPerMinDeltas']:
             participant_timeline['csDiffPerMinDeltas'][i] = round( participant_timeline['creepsPerMinDeltas'][i] - opponent_timeline['creepsPerMinDeltas'][i], 2)
         
-        for i in participant_timeline['xpDiffPerMinDeltas']:
+        participant_timeline['xpDiffPerMinDeltas'] = {}
+        for i in participant_timeline['xpPerMinDeltas']:
             participant_timeline['xpDiffPerMinDeltas'][i] = round( participant_timeline['xpPerMinDeltas'][i] - opponent_timeline['xpPerMinDeltas'][i], 2)
         
-        for i in participant_timeline['damageTakenDiffPerMinDeltas']:
+        participant_timeline['damageTakenDiffPerMinDeltas'] = {}
+        for i in participant_timeline['damageTakenPerMinDeltas']:
             participant_timeline['damageTakenDiffPerMinDeltas'][i] = round( participant_timeline['damageTakenPerMinDeltas'][i] - opponent_timeline['damageTakenPerMinDeltas'][i], 2)
         
         if upgrade_participant:

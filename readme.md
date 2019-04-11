@@ -5,9 +5,9 @@ This project aims to provide to Riot Games API users, especially those using mat
 
 Based on that observation, we used machine learning to create a classifier closer to what user would expect as roles, and with an improved accuracy. In order to get solid bases and verify the ability of our classifier, we build a set of manually labeled roles as a verification set. From this verification set, the Riot Games classifier gives a 12.5% error rate and our classifier downed this error rate to less than 0.1%, on really edge cases.
 
-For more details about the development of the classifier, check https://github.com/Canisback/roleML/blob/master/Role%20ML.ipynb
+For more details about the development of the classifier, check https://github.com/Canisback/roleML/blob/master/exploration/Role%20ML.ipynb
 
-To get the verification set raw data, get it here : https://github.com/Canisback/roleML/blob/master/verification_set.csv (column name is participantId) (all games are from EUW server).
+To get the verification set raw data, get it here : https://github.com/Canisback/roleML/blob/master/data/verification_set.csv (column name is participantId) (all games are from EUW server).
 
 This classifier only works for normal and ranked games on Summoner's Rift.
 
