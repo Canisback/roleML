@@ -5,7 +5,7 @@ setup(
   package_data={
     '': ['*.sav'],
   },
-  version = '0.1.5',
+  version = '0.1.8',
   description = 'ML classifier for role in Riot API LoL matches',
   author = 'Canisback',
   author_email = 'canisback@gmail.com',
