@@ -202,6 +202,7 @@ def predict(match, timeline):
         raise Exception("Match too short")
         
     df = get_features(match, timeline)
+    df = df.reindex(sorted(df.columns), axis=1)
     df["role"] = roleml_model.predict(df.drop(["participantId"], axis=1))
 
     df = df.set_index(df["participantId"])
