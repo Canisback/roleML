@@ -133,7 +133,7 @@ def get_stats_at_10(timeline):
     return stats_at_10
 
 def get_features(match, timeline):
-    
+
     participants_features_list = []
 
     # Get the players positions form the timeline
@@ -200,7 +200,7 @@ def get_features(match, timeline):
 def predict(match, timeline):
     if match["gameDuration"] < 720:
         raise Exception("Match too short")
-        
+
     df = get_features(match, timeline)
     df = df.reindex(sorted(df.columns), axis=1)
     df["role"] = roleml_model.predict(df.drop(["participantId"], axis=1))
@@ -229,38 +229,42 @@ def fix_and_augment_game_and_timeline(game, timeline, upgrade_participant=False,
             if opponent_id != participant_id and opponent['role'] == participant['role']:
                 opponent_found = True
                 break
-        
+
         if opponent_found is None:
             raise Exception('Player without opponent found')
-            
+
         if not game['participants'][opponent_id-1]['participantId'] == opponent_id:
             raise Exception('Opponent array detection screwed')
-        
+
         participant_timeline = participant['timeline']
         opponent_timeline = game['participants'][opponent_id-1]['timeline']
-        
+
         # Reseting or creating stats per min fields
         participant_timeline['csDiffPerMinDeltas'] = {}
         for i in participant_timeline['creepsPerMinDeltas']:
             participant_timeline['csDiffPerMinDeltas'][i] = round( participant_timeline['creepsPerMinDeltas'][i] - opponent_timeline['creepsPerMinDeltas'][i], 2)
-        
+
         participant_timeline['xpDiffPerMinDeltas'] = {}
         for i in participant_timeline['xpPerMinDeltas']:
             participant_timeline['xpDiffPerMinDeltas'][i] = round( participant_timeline['xpPerMinDeltas'][i] - opponent_timeline['xpPerMinDeltas'][i], 2)
-        
+
         participant_timeline['damageTakenDiffPerMinDeltas'] = {}
         for i in participant_timeline['damageTakenPerMinDeltas']:
             participant_timeline['damageTakenDiffPerMinDeltas'][i] = round( participant_timeline['damageTakenPerMinDeltas'][i] - opponent_timeline['damageTakenPerMinDeltas'][i], 2)
-        
+
         if upgrade_participant:
             participant_timeline['goldDiffPerMinDeltas'] = {}
             for i in participant_timeline['goldPerMinDeltas']:
                 participant_timeline['goldDiffPerMinDeltas'][i] = round( participant_timeline['goldPerMinDeltas'][i] - opponent_timeline['goldPerMinDeltas'][i], 2)
-        
+
         if upgrade_timeline:
+            participant_timeline_frame_order = {}
+            for x in timeline['frames'][0]['participantFrames']:
+                participant_timeline_frame_order[x['participantId']] = x
+
             for frame in timeline['frames']:
-                participant_frame = frame['participantFrames'][str(participant_id)]
-                opponent_frame = frame['participantFrames'][str(opponent_id)]
+                participant_frame = frame['participantFrames'][str(participant_timeline_frame_order[participant_id])]
+                opponent_frame = frame['participantFrames'][str(participant_timeline_frame_order[opponent_id])]
 
                 participant_frame['totalGoldDiff'] = participant_frame['totalGold'] - opponent_frame['totalGold']
                 participant_frame['xpDiff'] = participant_frame['xp'] - opponent_frame['xp']
@@ -272,6 +276,5 @@ def fix_and_augment_game_and_timeline(game, timeline, upgrade_participant=False,
     if not upgrade_participant:
         for participant in game['participants']:
             del(participant['role'])
-    
-    return game, timeline
 
+    return game, timeline
