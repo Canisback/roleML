@@ -212,6 +212,14 @@ def predict(match, timeline):
     return {k: clean_roles[participant_roles[k]] for k in participant_roles}
 
 
+#Fixes participantFrames so that key is participantId
+def fix_frame(frame):
+    fixed_frame = {"participantFrames": {}, 'events': frame["events"], 'timestamp': frame["timestamp"]}
+    for k, v in frame["participantFrames"].items():
+        fixed_frame["participantFrames"][str(v["participantId"])] = v
+    return fixed_frame
+
+
 def fix_and_augment_game_and_timeline(game, timeline, upgrade_participant=False, upgrade_timeline=False):
     true_roles = predict(game, timeline)
 
@@ -259,6 +267,7 @@ def fix_and_augment_game_and_timeline(game, timeline, upgrade_participant=False,
         
         if upgrade_timeline:
             for frame in timeline['frames']:
+                frame = fix_frame(frame)
                 participant_frame = frame['participantFrames'][str(participant_id)]
                 opponent_frame = frame['participantFrames'][str(opponent_id)]
 
