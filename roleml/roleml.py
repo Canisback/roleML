@@ -1,8 +1,9 @@
-from sklearn.externals import joblib
+import joblib
 import numpy as np
 import matplotlib.path as mpl_path
 import pandas as pd
 import os
+from sklearn.utils import _IS_32BIT
 
 # Initializing all the roles accepted
 role_composition = {"JUNGLE_NONE", "TOP_SOLO", "MIDDLE_SOLO", "BOTTOM_DUO_CARRY", "BOTTOM_DUO_SUPPORT"}
@@ -28,7 +29,7 @@ jungle2 = mpl_path.Path(
 
 # Static data for item frequency
 overUsedItems = {
-    'BOTTOM_DUO_SUPPORT': ['3050', '3069', '3092', '3096', '3097', '3098', '3105', '3107', '3114', '3222', '3382', '3401', '3504'],
+    'BOTTOM_DUO_SUPPORT': ['3050', '3069', '3092', '3096', '3097', '3098', '3105', '3107', '3114', '3222', '3382', '3401', '3504', '3850', '3851', '3853', '3854', '3855', '3857', '3858', '3859', '3860', '3862', '3863', '3864'],
     'JUNGLE_NONE': ['1039', '1041', '1400', '1401', '1402', '1412', '1413', '1414', '1416', '1419', '2057', '3706', '3715'],
     'TOP_SOLO': ['3068', '3161', '3196', '3373', '3379'],
     'BOTTOM_DUO_CARRY': ['2319', '3004', '3042', '3095', '3389'],
@@ -56,8 +57,11 @@ underUsedItems = {
 
 
 # Loading the model
-roleml_model = joblib.load(os.path.join(os.path.dirname(__file__), "role_identification_model.sav"))
-
+if _IS_32BIT:
+    roleml_model = joblib.load(os.path.join(os.path.dirname(__file__), "role_identification_model_32bits.sav"))
+else:
+    roleml_model = joblib.load(os.path.join(os.path.dirname(__file__), "role_identification_model_64bits.sav"))
+    
 
 def get_positions(timeline):
     frames = timeline['frames']
@@ -185,8 +189,9 @@ def get_features(match, timeline):
 
         # Summoner spells
         participant_features.update(spells)
-        participant_features["spell-" + str(participant["spell1Id"])] = 1
-        participant_features["spell-" + str(participant["spell2Id"])] = 1
+        if participant["spell1Id"] > 0:
+            participant_features["spell-" + str(participant["spell1Id"])] = 1
+            participant_features["spell-" + str(participant["spell2Id"])] = 1
 
         # Player stats
         participant_features.update(player_stats[participant_id])
