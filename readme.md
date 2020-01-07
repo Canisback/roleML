@@ -1,5 +1,13 @@
 # Role ML
 
+[![PyPi](https://img.shields.io/pypi/v/roleml)](https://pypi.org/project/roleml/)
+[![Build Status](https://travis-ci.com/Canisback/roleml.svg?branch=master)](https://travis-ci.com/Canisback/roleml)
+[![codecov](https://codecov.io/gh/Canisback/roleml/branch/master/graph/badge.svg)](https://codecov.io/gh/Canisback/roleml)
+[![Language grade: Python](https://img.shields.io/lgtm/grade/python/github/Canisback/roleML.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/Canisback/roleML/context:python)
+[![Downloads](https://pepy.tech/badge/roleml)](https://pepy.tech/project/roleml)
+***
+
+## League of Legends Role Classifier
 
 This project aims to provide to Riot Games API users, especially those using match data, a better classifier for role. It is known that the internal role classifier give a lot of misclassifications, making the whole thing not enough reliable for any production application.
 
