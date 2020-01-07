@@ -199,15 +199,19 @@ def get_features(match, timeline):
         participant_features["participantId"] = participant_id
 
         participants_features_list.append(participant_features)
-
-    return pd.DataFrame(participants_features_list)
+    
+    df = pd.DataFrame(participants_features_list)
+    
+    df = df.reindex(sorted(df.columns), axis=1)
+    
+    return df
 
 def predict(match, timeline):
     if match["gameDuration"] < 720:
         raise Exception("Match too short")
         
     df = get_features(match, timeline)
-    df = df.reindex(sorted(df.columns), axis=1)
+    
     df["role"] = roleml_model.predict(df.drop(["participantId"], axis=1))
 
     df = df.set_index(df["participantId"])
