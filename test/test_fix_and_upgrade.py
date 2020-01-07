@@ -119,3 +119,13 @@ def test_fix_upgrade_participant_and_timeline_2():
             assert "minionsKilledDiff" in p
             assert "jungleMinionsKilledDiff" in p
             
+            
+def test_fix_opponent_not_found_1():
+    with open(os.path.dirname(__file__) + "/data/EUW-4233525244.json", "r") as f:
+        data = json.load(f)
+        
+    try:
+        fixed_data, fixed_timeline = roleml.fix_and_augment_game_and_timeline(data, data["timeline"])
+        assert False
+    except:
+        assert True

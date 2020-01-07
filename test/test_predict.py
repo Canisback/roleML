@@ -41,3 +41,12 @@ def test_predict_2():
     }
     
     assert roles == roleml.predict(data, data["timeline"])
+
+def test_predict_match_too_short():
+    with open(os.path.dirname(__file__) + "/data/EUW-4236896092.json", "r") as f:
+        data = json.load(f)
+    try:
+        roleml.predict(data, data["timeline"])
+        assert False
+    except:
+        assert True
