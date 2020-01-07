@@ -15,7 +15,7 @@ setup(
   version = '0.1.11',
   description = 'ML classifier for role in Riot API LoL matches',
   long_description=long_description,
-  long_description_content_type='text/markdown'
+  long_description_content_type='text/markdown',
   author = 'Canisback',
   author_email = 'canisback@gmail.com',
   url = 'https://github.com/Canisback/roleML',
