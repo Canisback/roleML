@@ -12,7 +12,7 @@ setup(
   package_data={
     '': ['*.sav'],
   },
-  version = '0.1.11',
+  version = '0.1.12',
   description = 'ML classifier for role in Riot API LoL matches',
   long_description=long_description,
   long_description_content_type='text/markdown',
