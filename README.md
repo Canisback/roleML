@@ -15,7 +15,7 @@ Based on that observation, we used machine learning to create a classifier close
 
 For more details about the development of the classifier, check https://github.com/Canisback/roleML/blob/master/exploration/Role%20ML.ipynb
 
-To get the verification set raw data, get it here : https://github.com/Canisback/roleML/blob/master/data/verification_set.csv (column name is participantId) (all games are from EUW server).
+To get the verification set raw data, get it here : https://github.com/Canisback/roleML/blob/master/data/verification_results.csv (column name is participantId) (all games are from EUW server).
 
 This classifier only works for normal and ranked games on Summoner's Rift.
 
