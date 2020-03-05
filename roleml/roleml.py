@@ -1,8 +1,9 @@
-from sklearn.externals import joblib
+import joblib
 import numpy as np
 import matplotlib.path as mpl_path
 import pandas as pd
 import os
+from sklearn.utils import _IS_32BIT
 
 # Initializing all the roles accepted
 role_composition = {"JUNGLE_NONE", "TOP_SOLO", "MIDDLE_SOLO", "BOTTOM_DUO_CARRY", "BOTTOM_DUO_SUPPORT"}
@@ -28,7 +29,7 @@ jungle2 = mpl_path.Path(
 
 # Static data for item frequency
 overUsedItems = {
-    'BOTTOM_DUO_SUPPORT': ['3050', '3069', '3092', '3096', '3097', '3098', '3105', '3107', '3114', '3222', '3382', '3401', '3504'],
+    'BOTTOM_DUO_SUPPORT': ['3050', '3069', '3092', '3096', '3097', '3098', '3105', '3107', '3114', '3222', '3382', '3401', '3504', '3850', '3851', '3853', '3854', '3855', '3857', '3858', '3859', '3860', '3862', '3863', '3864'],
     'JUNGLE_NONE': ['1039', '1041', '1400', '1401', '1402', '1412', '1413', '1414', '1416', '1419', '2057', '3706', '3715'],
     'TOP_SOLO': ['3068', '3161', '3196', '3373', '3379'],
     'BOTTOM_DUO_CARRY': ['2319', '3004', '3042', '3095', '3389'],
@@ -56,8 +57,11 @@ underUsedItems = {
 
 
 # Loading the model
-roleml_model = joblib.load(os.path.join(os.path.dirname(__file__), "role_identification_model.sav"))
-
+if _IS_32BIT:
+    roleml_model = joblib.load(os.path.join(os.path.dirname(__file__), "role_identification_model_32bits.sav"))
+else:
+    roleml_model = joblib.load(os.path.join(os.path.dirname(__file__), "role_identification_model_64bits.sav"))
+    
 
 def get_positions(timeline):
     frames = timeline['frames']
@@ -185,8 +189,9 @@ def get_features(match, timeline):
 
         # Summoner spells
         participant_features.update(spells)
-        participant_features["spell-" + str(participant["spell1Id"])] = 1
-        participant_features["spell-" + str(participant["spell2Id"])] = 1
+        if participant["spell1Id"] > 0:
+            participant_features["spell-" + str(participant["spell1Id"])] = 1
+            participant_features["spell-" + str(participant["spell2Id"])] = 1
 
         # Player stats
         participant_features.update(player_stats[participant_id])
@@ -194,14 +199,19 @@ def get_features(match, timeline):
         participant_features["participantId"] = participant_id
 
         participants_features_list.append(participant_features)
-
-    return pd.DataFrame(participants_features_list)
+    
+    df = pd.DataFrame(participants_features_list)
+    
+    df = df.reindex(sorted(df.columns), axis=1)
+    
+    return df
 
 def predict(match, timeline):
     if match["gameDuration"] < 720:
         raise Exception("Match too short")
         
     df = get_features(match, timeline)
+    
     df["role"] = roleml_model.predict(df.drop(["participantId"], axis=1))
 
     df = df.set_index(df["participantId"])
@@ -209,6 +219,14 @@ def predict(match, timeline):
     participant_roles = df["role"].to_dict()
 
     return {k: clean_roles[participant_roles[k]] for k in participant_roles}
+
+
+#Fixes participantFrames so that key is participantId
+def fix_frame(frame):
+    fixed_frame = {"participantFrames": {}, 'events': frame["events"], 'timestamp': frame["timestamp"]}
+    for k, v in frame["participantFrames"].items():
+        fixed_frame["participantFrames"][str(v["participantId"])] = v
+    return fixed_frame
 
 
 def fix_and_augment_game_and_timeline(game, timeline, upgrade_participant=False, upgrade_timeline=False):
@@ -258,6 +276,7 @@ def fix_and_augment_game_and_timeline(game, timeline, upgrade_participant=False,
         
         if upgrade_timeline:
             for frame in timeline['frames']:
+                frame = fix_frame(frame)
                 participant_frame = frame['participantFrames'][str(participant_id)]
                 opponent_frame = frame['participantFrames'][str(opponent_id)]
 
