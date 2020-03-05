@@ -10,7 +10,6 @@ role_composition = {"JUNGLE_NONE", "TOP_SOLO", "MIDDLE_SOLO", "BOTTOM_DUO_CARRY"
 clean_roles = {"JUNGLE_NONE": 'jungle', "TOP_SOLO": 'top', "MIDDLE_SOLO": 'mid',
                "BOTTOM_DUO_CARRY": 'bot', "BOTTOM_DUO_SUPPORT": 'supp'}
 
-
 # Init spells
 spells = {'spell-21': 0, 'spell-1': 0, 'spell-14': 0, 'spell-3': 0, 'spell-4': 0, 'spell-6': 0, 'spell-7': 0,
           'spell-11': 0, 'spell-12': 0}
@@ -29,8 +28,11 @@ jungle2 = mpl_path.Path(
 
 # Static data for item frequency
 overUsedItems = {
-    'BOTTOM_DUO_SUPPORT': ['3050', '3069', '3092', '3096', '3097', '3098', '3105', '3107', '3114', '3222', '3382', '3401', '3504', '3850', '3851', '3853', '3854', '3855', '3857', '3858', '3859', '3860', '3862', '3863', '3864'],
-    'JUNGLE_NONE': ['1039', '1041', '1400', '1401', '1402', '1412', '1413', '1414', '1416', '1419', '2057', '3706', '3715'],
+    'BOTTOM_DUO_SUPPORT': ['3050', '3069', '3092', '3096', '3097', '3098', '3105', '3107', '3114', '3222', '3382',
+                           '3401', '3504', '3850', '3851', '3853', '3854', '3855', '3857', '3858', '3859', '3860',
+                           '3862', '3863', '3864'],
+    'JUNGLE_NONE': ['1039', '1041', '1400', '1401', '1402', '1412', '1413', '1414', '1416', '1419', '2057', '3706',
+                    '3715'],
     'TOP_SOLO': ['3068', '3161', '3196', '3373', '3379'],
     'BOTTOM_DUO_CARRY': ['2319', '3004', '3042', '3095', '3389'],
     'MIDDLE_SOLO': ['3197']
@@ -39,16 +41,60 @@ mostlyUsedItems = {
     'BOTTOM_DUO_SUPPORT': ['1004', '2065', '2403', '3024', '3028', '3109', '3117', '3174', '3190', '3383', '3801'],
     'JUNGLE_NONE': ['3083', '3380', '3513'],
     'TOP_SOLO': ['2053', '3022', '3056', '3074', '3387', '3512', '3748', '3751', '3812'],
-    'BOTTOM_DUO_CARRY': ['1042', '1043', '1051', '1055', '1083', '2011', '2015', '2060', '2061', '3006', '3025', '3031', '3046', '3072', '3085', '3086', '3087', '3094', '3124', '3139', '3140', '3144', '3153', '3363', '3371', '3508'],
+    'BOTTOM_DUO_CARRY': ['1042', '1043', '1051', '1055', '1083', '2011', '2015', '2060', '2061', '3006', '3025', '3031',
+                         '3046', '3072', '3085', '3086', '3087', '3094', '3124', '3139', '3140', '3144', '3153', '3363',
+                         '3371', '3508'],
     'MIDDLE_SOLO': ['1056', '3003', '3027', '3030', '3040', '3198', '3285', '3390']
 }
 
 underUsedItems = {
-    'BOTTOM_DUO_SUPPORT': ['1011', '1018', '1036', '1037', '1038', '1039', '1041', '1042', '1043', '1051', '1053', '1054', '1055', '1056', '1057', '1058', '1083', '1400', '1401', '1402', '1412', '1413', '1414', '1416', '1419', '2011', '2015', '2033', '2057', '2058', '2059', '2061', '2062', '2140', '2319', '2420', '2421', '3001', '3004', '3006', '3020', '3022', '3025', '3026', '3027', '3031', '3033', '3035', '3036', '3040', '3042', '3044', '3046', '3047', '3052', '3053', '3057', '3065', '3068', '3071', '3072', '3074', '3075', '3076', '3077', '3078', '3083', '3085', '3086', '3087', '3089', '3091', '3094', '3095', '3100', '3101', '3102', '3115', '3123', '3124', '3135', '3139', '3140', '3142', '3143', '3144', '3146', '3152', '3153', '3155', '3156', '3161', '3165', '3193', '3194', '3196', '3197', '3198', '3211', '3285', '3340', '3363', '3371', '3373', '3374', '3379', '3380', '3384', '3386', '3387', '3389', '3508', '3513', '3706', '3715', '3742', '3748', '3751', '3812', '3814', '3907', '3916'],
-    'JUNGLE_NONE': ['1004', '1006', '1018', '1051', '1053', '1054', '1055', '1056', '1083', '2003', '2004', '2010', '2011', '2013', '2015', '2033', '2053', '2056', '2058', '2059', '2060', '2061', '2062', '2065', '2319', '2403', '2422', '2423', '2424', '3003', '3004', '3006', '3009', '3024', '3025', '3027', '3028', '3030', '3031', '3040', '3042', '3046', '3050', '3056', '3068', '3069', '3070', '3072', '3086', '3087', '3092', '3094', '3095', '3096', '3097', '3098', '3105', '3107', '3114', '3115', '3116', '3123', '3124', '3139', '3140', '3146', '3152', '3153', '3158', '3161', '3190', '3196', '3197', '3198', '3222', '3285', '3301', '3302', '3363', '3371', '3373', '3379', '3382', '3389', '3390', '3401', '3504', '3508', '3751', '3801', '3802', '3812', '3905', '3907'],
-    'TOP_SOLO': ['1004', '1039', '1041', '1042', '1051', '1400', '1401', '1402', '1412', '1413', '1414', '1416', '1419', '2003', '2015', '2055', '2057', '2065', '2319', '2423', '3004', '3006', '3009', '3028', '3031', '3041', '3042', '3046', '3050', '3069', '3072', '3085', '3086', '3092', '3094', '3095', '3096', '3097', '3098', '3100', '3105', '3107', '3109', '3113', '3114', '3117', '3124', '3139', '3145', '3153', '3158', '3174', '3190', '3197', '3222', '3285', '3303', '3363', '3364', '3371', '3374', '3380', '3382', '3386', '3388', '3389', '3390', '3401', '3504', '3513', '3706', '3715', '3801', '3905'],
-    'BOTTOM_DUO_CARRY': ['1001', '1004', '1006', '1011', '1026', '1027', '1028', '1029', '1031', '1039', '1041', '1052', '1056', '1058', '1082', '1400', '1401', '1402', '1412', '1413', '1414', '1416', '1419', '2033', '2053', '2055', '2057', '2065', '2138', '2139', '2403', '3001', '3003', '3010', '3020', '3024', '3027', '3028', '3030', '3040', '3041', '3044', '3047', '3050', '3052', '3053', '3056', '3057', '3065', '3067', '3068', '3069', '3070', '3071', '3074', '3075', '3076', '3077', '3078', '3082', '3083', '3089', '3092', '3096', '3097', '3098', '3100', '3102', '3105', '3107', '3108', '3109', '3110', '3111', '3113', '3114', '3116', '3117', '3134', '3135', '3136', '3142', '3143', '3147', '3151', '3152', '3157', '3161', '3165', '3174', '3190', '3191', '3193', '3194', '3196', '3197', '3198', '3211', '3222', '3285', '3303', '3340', '3364', '3373', '3374', '3379', '3380', '3382', '3383', '3387', '3390', '3401', '3504', '3512', '3513', '3706', '3715', '3742', '3748', '3751', '3800', '3801', '3812', '3814', '3905', '3907', '3916'],
-    'MIDDLE_SOLO': ['1004', '1006', '1011', '1029', '1031', '1033', '1039', '1041', '1042', '1043', '1051', '1055', '1057', '1083', '1400', '1401', '1402', '1412', '1413', '1414', '1416', '1419', '2010', '2011', '2013', '2015', '2053', '2056', '2057', '2058', '2060', '2061', '2062', '2065', '2138', '2140', '2319', '3004', '3006', '3009', '3010', '3022', '3024', '3025', '3028', '3042', '3046', '3047', '3050', '3056', '3065', '3067', '3068', '3069', '3071', '3072', '3074', '3075', '3076', '3082', '3083', '3085', '3086', '3092', '3094', '3095', '3096', '3097', '3098', '3101', '3105', '3107', '3109', '3110', '3114', '3117', '3123', '3124', '3139', '3143', '3144', '3153', '3161', '3174', '3190', '3193', '3194', '3196', '3211', '3222', '3301', '3364', '3373', '3379', '3382', '3383', '3387', '3389', '3401', '3504', '3508', '3512', '3513', '3706', '3715', '3742', '3751', '3800', '3801']
+    'BOTTOM_DUO_SUPPORT': ['1011', '1018', '1036', '1037', '1038', '1039', '1041', '1042', '1043', '1051', '1053',
+                           '1054', '1055', '1056', '1057', '1058', '1083', '1400', '1401', '1402', '1412', '1413',
+                           '1414', '1416', '1419', '2011', '2015', '2033', '2057', '2058', '2059', '2061', '2062',
+                           '2140', '2319', '2420', '2421', '3001', '3004', '3006', '3020', '3022', '3025', '3026',
+                           '3027', '3031', '3033', '3035', '3036', '3040', '3042', '3044', '3046', '3047', '3052',
+                           '3053', '3057', '3065', '3068', '3071', '3072', '3074', '3075', '3076', '3077', '3078',
+                           '3083', '3085', '3086', '3087', '3089', '3091', '3094', '3095', '3100', '3101', '3102',
+                           '3115', '3123', '3124', '3135', '3139', '3140', '3142', '3143', '3144', '3146', '3152',
+                           '3153', '3155', '3156', '3161', '3165', '3193', '3194', '3196', '3197', '3198', '3211',
+                           '3285', '3340', '3363', '3371', '3373', '3374', '3379', '3380', '3384', '3386', '3387',
+                           '3389', '3508', '3513', '3706', '3715', '3742', '3748', '3751', '3812', '3814', '3907',
+                           '3916'],
+    'JUNGLE_NONE': ['1004', '1006', '1018', '1051', '1053', '1054', '1055', '1056', '1083', '2003', '2004', '2010',
+                    '2011', '2013', '2015', '2033', '2053', '2056', '2058', '2059', '2060', '2061', '2062', '2065',
+                    '2319', '2403', '2422', '2423', '2424', '3003', '3004', '3006', '3009', '3024', '3025', '3027',
+                    '3028', '3030', '3031', '3040', '3042', '3046', '3050', '3056', '3068', '3069', '3070', '3072',
+                    '3086', '3087', '3092', '3094', '3095', '3096', '3097', '3098', '3105', '3107', '3114', '3115',
+                    '3116', '3123', '3124', '3139', '3140', '3146', '3152', '3153', '3158', '3161', '3190', '3196',
+                    '3197', '3198', '3222', '3285', '3301', '3302', '3363', '3371', '3373', '3379', '3382', '3389',
+                    '3390', '3401', '3504', '3508', '3751', '3801', '3802', '3812', '3905', '3907'],
+    'TOP_SOLO': ['1004', '1039', '1041', '1042', '1051', '1400', '1401', '1402', '1412', '1413', '1414', '1416', '1419',
+                 '2003', '2015', '2055', '2057', '2065', '2319', '2423', '3004', '3006', '3009', '3028', '3031', '3041',
+                 '3042', '3046', '3050', '3069', '3072', '3085', '3086', '3092', '3094', '3095', '3096', '3097', '3098',
+                 '3100', '3105', '3107', '3109', '3113', '3114', '3117', '3124', '3139', '3145', '3153', '3158', '3174',
+                 '3190', '3197', '3222', '3285', '3303', '3363', '3364', '3371', '3374', '3380', '3382', '3386', '3388',
+                 '3389', '3390', '3401', '3504', '3513', '3706', '3715', '3801', '3905'],
+    'BOTTOM_DUO_CARRY': ['1001', '1004', '1006', '1011', '1026', '1027', '1028', '1029', '1031', '1039', '1041', '1052',
+                         '1056', '1058', '1082', '1400', '1401', '1402', '1412', '1413', '1414', '1416', '1419', '2033',
+                         '2053', '2055', '2057', '2065', '2138', '2139', '2403', '3001', '3003', '3010', '3020', '3024',
+                         '3027', '3028', '3030', '3040', '3041', '3044', '3047', '3050', '3052', '3053', '3056', '3057',
+                         '3065', '3067', '3068', '3069', '3070', '3071', '3074', '3075', '3076', '3077', '3078', '3082',
+                         '3083', '3089', '3092', '3096', '3097', '3098', '3100', '3102', '3105', '3107', '3108', '3109',
+                         '3110', '3111', '3113', '3114', '3116', '3117', '3134', '3135', '3136', '3142', '3143', '3147',
+                         '3151', '3152', '3157', '3161', '3165', '3174', '3190', '3191', '3193', '3194', '3196', '3197',
+                         '3198', '3211', '3222', '3285', '3303', '3340', '3364', '3373', '3374', '3379', '3380', '3382',
+                         '3383', '3387', '3390', '3401', '3504', '3512', '3513', '3706', '3715', '3742', '3748', '3751',
+                         '3800', '3801', '3812', '3814', '3905', '3907', '3916'],
+    'MIDDLE_SOLO': ['1004', '1006', '1011', '1029', '1031', '1033', '1039', '1041', '1042', '1043', '1051', '1055',
+                    '1057', '1083', '1400', '1401', '1402', '1412', '1413', '1414', '1416', '1419', '2010', '2011',
+                    '2013', '2015', '2053', '2056', '2057', '2058', '2060', '2061', '2062', '2065', '2138', '2140',
+                    '2319', '3004', '3006', '3009', '3010', '3022', '3024', '3025', '3028', '3042', '3046', '3047',
+                    '3050', '3056', '3065', '3067', '3068', '3069', '3071', '3072', '3074', '3075', '3076', '3082',
+                    '3083', '3085', '3086', '3092', '3094', '3095', '3096', '3097', '3098', '3101', '3105', '3107',
+                    '3109', '3110', '3114', '3117', '3123', '3124', '3139', '3143', '3144', '3153', '3161', '3174',
+                    '3190', '3193', '3194', '3196', '3211', '3222', '3301', '3364', '3373', '3379', '3382', '3383',
+                    '3387', '3389', '3401', '3504', '3508', '3512', '3513', '3706', '3715', '3742', '3751', '3800',
+                    '3801']
 }
 
 # TODO : these should not be static
@@ -61,7 +107,7 @@ if _IS_32BIT:
     roleml_model = joblib.load(os.path.join(os.path.dirname(__file__), "role_identification_model_32bits.sav"))
 else:
     roleml_model = joblib.load(os.path.join(os.path.dirname(__file__), "role_identification_model_64bits.sav"))
-    
+
 
 def get_positions(timeline):
     frames = timeline['frames']
@@ -120,24 +166,25 @@ def get_lane_frequencies(participants_positions):
     return lane_frequencies
 
 
-def get_stats_at_10(timeline):
+def get_stats_at_10(timeline, feature_names):
     participant_frame = timeline['frames'][10]['participantFrames']
     stats_at_10 = {}
     for k in participant_frame:
         participantId = participant_frame[k]["participantId"]
         row = {
-            "minionsKilled": participant_frame[k]["minionsKilled"],
-            "jungleMinionsKilled": participant_frame[k]["jungleMinionsKilled"],
-            "jungleMinionRatio": participant_frame[k]["jungleMinionsKilled"] /
-                                 (participant_frame[k]["minionsKilled"] + participant_frame[k]["jungleMinionsKilled"])
-            if participant_frame[k]["minionsKilled"] > 0 else 0
+            "minionsKilled": participant_frame[k][feature_names["minionsKilled"]],
+            "jungleMinionsKilled": participant_frame[k][feature_names["jungleMinionsKilled"]],
+            "jungleMinionRatio": participant_frame[k][feature_names["jungleMinionsKilled"]] /
+                                 (participant_frame[k][feature_names["minionsKilled"]] + participant_frame[k][
+                                     feature_names["jungleMinionsKilled"]])
+            if participant_frame[k][feature_names["minionsKilled"]] > 0 else 0
         }
         stats_at_10[participantId] = row
 
     return stats_at_10
 
-def get_features(match, timeline):
-    
+
+def get_features(match, timeline, cassiopeia_dicts):
     participants_features_list = []
 
     # Get the players positions form the timeline
@@ -146,13 +193,21 @@ def get_features(match, timeline):
     player_most_frequent_lane = get_most_frequent_lane(players_positions)
     player_lane_frequencies = get_lane_frequencies(players_positions)
 
-    player_stats = get_stats_at_10(timeline)
+    if not cassiopeia_dicts:
+        feature_names = {'participantId': 'participantId', 'spell1Id': 'spell1Id', 'spell2Id': 'spell2Id',
+                         'minionsKilled': 'minionsKilled', 'jungleMinionsKilled': 'jungleMinionsKilled'}
+    else:
+        feature_names = {'participantId': 'id', 'spell1Id': 'summonerSpellDId', 'spell2Id': 'summonerSpellFId',
+                         'minionsKilled': 'creepScore', 'jungleMinionsKilled': 'neutralMinionsKilled'}
+
+    player_stats = get_stats_at_10(timeline, feature_names)
 
     for participant in match['participants']:
 
         participant_features = {}
 
-        participant_id = participant["participantId"]
+        participant_id = participant[feature_names["participantId"]]
+        # participant_id = participant["participantId"]
 
         lanes = ["jungle", "top", "mid", "bot"]
 
@@ -189,9 +244,12 @@ def get_features(match, timeline):
 
         # Summoner spells
         participant_features.update(spells)
-        if participant["spell1Id"] > 0:
-            participant_features["spell-" + str(participant["spell1Id"])] = 1
-            participant_features["spell-" + str(participant["spell2Id"])] = 1
+        if participant[feature_names["spell1Id"]] > 0:
+            participant_features["spell-" + str(participant[feature_names["spell1Id"]])] = 1
+            participant_features["spell-" + str(participant[feature_names["spell2Id"]])] = 1
+        # if participant["spell1Id"] > 0:
+        #     participant_features["spell-" + str(participant["spell1Id"])] = 1
+        #     participant_features["spell-" + str(participant["spell2Id"])] = 1
 
         # Player stats
         participant_features.update(player_stats[participant_id])
@@ -199,19 +257,20 @@ def get_features(match, timeline):
         participant_features["participantId"] = participant_id
 
         participants_features_list.append(participant_features)
-    
+
     df = pd.DataFrame(participants_features_list)
-    
+
     df = df.reindex(sorted(df.columns), axis=1)
-    
+
     return df
 
-def predict(match, timeline):
+
+def predict(match, timeline, cassiopeia_dicts=False):
     if match["gameDuration"] < 720:
         raise Exception("Match too short")
-        
-    df = get_features(match, timeline)
-    
+
+    df = get_features(match, timeline, cassiopeia_dicts)
+
     df["role"] = roleml_model.predict(df.drop(["participantId"], axis=1))
 
     df = df.set_index(df["participantId"])
@@ -221,7 +280,7 @@ def predict(match, timeline):
     return {k: clean_roles[participant_roles[k]] for k in participant_roles}
 
 
-#Fixes participantFrames so that key is participantId
+# Fixes participantFrames so that key is participantId
 def fix_frame(frame):
     fixed_frame = {"participantFrames": {}, 'events': frame["events"], 'timestamp': frame["timestamp"]}
     for k, v in frame["participantFrames"].items():
@@ -246,34 +305,38 @@ def fix_and_augment_game_and_timeline(game, timeline, upgrade_participant=False,
             if opponent_id != participant_id and opponent['role'] == participant['role']:
                 opponent_found = True
                 break
-        
+
         if opponent_found is None:
             raise Exception('Player without opponent found')
-            
-        if not game['participants'][opponent_id-1]['participantId'] == opponent_id:
+
+        if not game['participants'][opponent_id - 1]['participantId'] == opponent_id:
             raise Exception('Opponent array detection screwed')
-        
+
         participant_timeline = participant['timeline']
-        opponent_timeline = game['participants'][opponent_id-1]['timeline']
-        
+        opponent_timeline = game['participants'][opponent_id - 1]['timeline']
+
         # Reseting or creating stats per min fields
         participant_timeline['csDiffPerMinDeltas'] = {}
         for i in participant_timeline['creepsPerMinDeltas']:
-            participant_timeline['csDiffPerMinDeltas'][i] = round( participant_timeline['creepsPerMinDeltas'][i] - opponent_timeline['creepsPerMinDeltas'][i], 2)
-        
+            participant_timeline['csDiffPerMinDeltas'][i] = round(
+                participant_timeline['creepsPerMinDeltas'][i] - opponent_timeline['creepsPerMinDeltas'][i], 2)
+
         participant_timeline['xpDiffPerMinDeltas'] = {}
         for i in participant_timeline['xpPerMinDeltas']:
-            participant_timeline['xpDiffPerMinDeltas'][i] = round( participant_timeline['xpPerMinDeltas'][i] - opponent_timeline['xpPerMinDeltas'][i], 2)
-        
+            participant_timeline['xpDiffPerMinDeltas'][i] = round(
+                participant_timeline['xpPerMinDeltas'][i] - opponent_timeline['xpPerMinDeltas'][i], 2)
+
         participant_timeline['damageTakenDiffPerMinDeltas'] = {}
         for i in participant_timeline['damageTakenPerMinDeltas']:
-            participant_timeline['damageTakenDiffPerMinDeltas'][i] = round( participant_timeline['damageTakenPerMinDeltas'][i] - opponent_timeline['damageTakenPerMinDeltas'][i], 2)
-        
+            participant_timeline['damageTakenDiffPerMinDeltas'][i] = round(
+                participant_timeline['damageTakenPerMinDeltas'][i] - opponent_timeline['damageTakenPerMinDeltas'][i], 2)
+
         if upgrade_participant:
             participant_timeline['goldDiffPerMinDeltas'] = {}
             for i in participant_timeline['goldPerMinDeltas']:
-                participant_timeline['goldDiffPerMinDeltas'][i] = round( participant_timeline['goldPerMinDeltas'][i] - opponent_timeline['goldPerMinDeltas'][i], 2)
-        
+                participant_timeline['goldDiffPerMinDeltas'][i] = round(
+                    participant_timeline['goldPerMinDeltas'][i] - opponent_timeline['goldPerMinDeltas'][i], 2)
+
         if upgrade_timeline:
             for frame in timeline['frames']:
                 frame = fix_frame(frame)
@@ -289,7 +352,6 @@ def fix_and_augment_game_and_timeline(game, timeline, upgrade_participant=False,
 
     if not upgrade_participant:
         for participant in game['participants']:
-            del(participant['role'])
-    
-    return game, timeline
+            del (participant['role'])
 
+    return game, timeline
