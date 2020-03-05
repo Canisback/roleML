@@ -207,7 +207,6 @@ def get_features(match, timeline, cassiopeia_dicts):
         participant_features = {}
 
         participant_id = participant[feature_names["participantId"]]
-        # participant_id = participant["participantId"]
 
         lanes = ["jungle", "top", "mid", "bot"]
 
@@ -247,9 +246,6 @@ def get_features(match, timeline, cassiopeia_dicts):
         if participant[feature_names["spell1Id"]] > 0:
             participant_features["spell-" + str(participant[feature_names["spell1Id"]])] = 1
             participant_features["spell-" + str(participant[feature_names["spell2Id"]])] = 1
-        # if participant["spell1Id"] > 0:
-        #     participant_features["spell-" + str(participant["spell1Id"])] = 1
-        #     participant_features["spell-" + str(participant["spell2Id"])] = 1
 
         # Player stats
         participant_features.update(player_stats[participant_id])
