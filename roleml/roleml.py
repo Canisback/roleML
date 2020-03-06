@@ -26,6 +26,10 @@ jungle1 = mpl_path.Path(
 jungle2 = mpl_path.Path(
     np.array([[5000, 1700], [4200, 3500], [11300, 10500], [13270, 9900], [13270, 4000], [10500, 1700]]))
 
+# Init features_name
+feature_names = {'participantId': 'participantId', 'spell1Id': 'spell1Id', 'spell2Id': 'spell2Id',
+                         'minionsKilled': 'minionsKilled', 'jungleMinionsKilled': 'jungleMinionsKilled'}
+
 # Static data for item frequency
 overUsedItems = {
     'BOTTOM_DUO_SUPPORT': ['3050', '3069', '3092', '3096', '3097', '3098', '3105', '3107', '3114', '3222', '3382',
@@ -166,7 +170,7 @@ def get_lane_frequencies(participants_positions):
     return lane_frequencies
 
 
-def get_stats_at_10(timeline, feature_names):
+def get_stats_at_10(timeline, feature_names=feature_names):
     participant_frame = timeline['frames'][10]['participantFrames']
     stats_at_10 = {}
     for k in participant_frame:
@@ -184,7 +188,7 @@ def get_stats_at_10(timeline, feature_names):
     return stats_at_10
 
 
-def get_features(match, timeline, cassiopeia_dicts):
+def get_features(match, timeline, cassiopeia_dicts = False):
     participants_features_list = []
 
     # Get the players positions form the timeline
@@ -351,3 +355,8 @@ def fix_and_augment_game_and_timeline(game, timeline, upgrade_participant=False,
             del (participant['role'])
 
     return game, timeline
+
+def add_cass_predicited_roles(match):
+    predicted_roles = predict(match.to_dict(), match.timeline.to_dict(), True)
+    for p in match.participants:
+        p.predicted_role = predicted_roles[p.id]

@@ -79,3 +79,52 @@ Fix and augment both :
 fixed_and_augmented_match, fixed_and_augmented_timeline = 
 	roleml.fix_and_augment_game_and_timeline(game, timeline, True, True)
 ```
+
+
+#### Cassiopeia support
+
+RoleML partially supports Cassiopeia Match data structure. The predict function has a cassiopeia_dicts flag to be used with the Cassiopeia match .to_dict() function : 
+
+```
+roleml.predict(match.to_dict(), match.timeline.to_dict(), True)
+```
+
+A special function allows to add the predicited role in Participants object from Cassiopeia matches : 
+
+```
+roleml.add_cass_predicited_roles(match)
+```
+
+
+Working example : 
+
+```
+from roleml import roleml
+import cassiopeia as cass
+
+cass.set_riot_api_key("RGAPI-")
+cass.set_default_region("EUW")
+
+summoner = cass.get_summoner(name="Canisback")
+match = cass.MatchHistory(summoner=summoner, queues={cass.Queue.blind_fives})[0].load()
+match.timeline.load()
+
+roleml.add_cass_predicited_roles(match)
+for p in match.participants:
+    print(p.predicted_role)
+```
+
+Output : 
+
+```
+bot
+jungle
+mid
+top
+supp
+bot
+mid
+supp
+jungle
+top
+```
