@@ -2,4 +2,3 @@ scikit-learn >= 0.22.1
 numpy >= 1.16.2
 matplotlib
 pandas
-git+git://github.com/meraki-analytics/cassiopeia.git
