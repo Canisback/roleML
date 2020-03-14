@@ -6,6 +6,7 @@ before_install:
 - export PYTHONPATH=$PYTHONPATH:$(pwd)
 install:
 - pip install -r requirements.txt
+- pip install git+git://github.com/meraki-analytics/cassiopeia.git
 - pip install codecov
 - pip install tox-travis
 script:
