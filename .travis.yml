@@ -9,6 +9,7 @@ install:
 - pip install git+git://github.com/meraki-analytics/cassiopeia.git
 - pip install codecov
 - pip install tox-travis
+- pip install pytest
 script:
 - tox
 after_success:
