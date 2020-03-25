@@ -1,9 +1,11 @@
 import joblib
 import numpy as np
-import matplotlib.path as mpl_path
+from shapely.geometry import Point, Polygon
 import pandas as pd
 import os
 from sklearn.utils import _IS_32BIT
+
+from .utils import exceptions
 
 # Initializing all the roles accepted
 role_composition = {"JUNGLE_NONE", "TOP_SOLO", "MIDDLE_SOLO", "BOTTOM_DUO_CARRY", "BOTTOM_DUO_SUPPORT"}
@@ -15,16 +17,16 @@ spells = {'spell-21': 0, 'spell-1': 0, 'spell-14': 0, 'spell-3': 0, 'spell-4': 0
           'spell-11': 0, 'spell-12': 0}
 
 # Static data for lane position
-midlane = mpl_path.Path(
-    np.array([[4200, 3500], [11300, 10500], [13200, 13200], [10500, 11300], [3300, 4400], [1600, 1600]]))
-toplane = mpl_path.Path(
-    np.array([[-120, 1600], [-120, 14980], [13200, 14980], [13200, 13200], [4000, 13200], [1600, 11000], [1600, 1600]]))
-botlane = mpl_path.Path(
-    np.array([[1600, -120], [14870, -120], [14870, 13200], [13200, 13200], [13270, 4000], [10500, 1700], [1600, 1600]]))
-jungle1 = mpl_path.Path(
-    np.array([[1600, 5000], [1600, 11000], [4000, 13200], [9800, 13200], [10500, 11300], [3300, 4400]]))
-jungle2 = mpl_path.Path(
-    np.array([[5000, 1700], [4200, 3500], [11300, 10500], [13270, 9900], [13270, 4000], [10500, 1700]]))
+midlane = Polygon(
+    [(4200, 3500), (11300, 10500), (13200, 13200), (10500, 11300), (3300, 4400), (1600, 1600)])
+toplane = Polygon(
+    [(-120, 1600), (-120, 14980), (13200, 14980), (13200, 13200), (4000, 13200), (1600, 11000), (1600, 1600)])
+botlane = Polygon(
+    [(1600, -120), (14870, -120), (14870, 13200), (13200, 13200), (13270, 4000), (10500, 1700), (1600, 1600)])
+jungle1 = Polygon(
+    [(1600, 5000), (1600, 11000), (4000, 13200), (9800, 13200), (10500, 11300), (3300, 4400)])
+jungle2 = Polygon(
+    [(5000, 1700), (4200, 3500), (11300, 10500), (13270, 9900), (13270, 4000), (10500, 1700)])
 
 # Init features_name
 feature_names = {'participantId': 'participantId', 'spell1Id': 'spell1Id', 'spell2Id': 'spell2Id',
@@ -125,16 +127,16 @@ def get_positions(timeline):
             position = None
 
             # Position on the map
-            coord = [frames[i]['participantFrames'][k]['position']['x'],
-                     frames[i]['participantFrames'][k]['position']['y']]
+            coord = Point(frames[i]['participantFrames'][k]['position']['x'],
+                     frames[i]['participantFrames'][k]['position']['y'])
             # Check where is the position
-            if jungle1.contains_point(coord) or jungle2.contains_point(coord):
+            if jungle1.contains(coord) or jungle2.contains(coord):
                 position = "jungle"
-            elif midlane.contains_point(coord):
+            elif midlane.contains(coord):
                 position = "mid"
-            elif toplane.contains_point(coord):
+            elif toplane.contains(coord):
                 position = "top"
-            elif botlane.contains_point(coord):
+            elif botlane.contains(coord):
                 position = "bot"
             # Save the position for the participant
             participants_positions[int(participantId)].append(position)
@@ -267,7 +269,9 @@ def get_features(match, timeline, cassiopeia_dicts = False):
 
 def predict(match, timeline, cassiopeia_dicts=False):
     if match["gameDuration"] < 720:
-        raise Exception("Match too short")
+        raise exceptions.MatchTooShort
+    if not match["mapId"] == 11:
+        raise exceptions.IncorrectMap
 
     df = get_features(match, timeline, cassiopeia_dicts)
 

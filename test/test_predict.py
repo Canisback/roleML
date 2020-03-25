@@ -1,4 +1,5 @@
 from roleml import roleml
+from roleml.utils import exceptions
 import json
 import os
 
@@ -48,5 +49,18 @@ def test_predict_match_too_short():
     try:
         roleml.predict(data, data["timeline"])
         assert False
-    except:
+    except exceptions.MatchTooShort:
         assert True
+    except:
+        assert False
+
+def test_predict_match_ARAM():
+    with open(os.path.dirname(__file__) + "/data/EUW-4458819927.json", "r") as f:
+        data = json.load(f)
+    try:
+        roleml.predict(data, data["timeline"])
+        assert False
+    except exceptions.IncorrectMap:
+        assert True
+    except:
+        assert False
