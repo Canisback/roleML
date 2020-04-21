@@ -1,5 +1,5 @@
 try:
-    from roleml import roleml
+    import roleml
     import json
     import os
 

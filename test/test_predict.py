@@ -1,5 +1,5 @@
-from roleml import roleml
-from roleml.utils import exceptions
+import roleml
+from roleml import exceptions
 import json
 import os
 

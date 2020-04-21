@@ -34,7 +34,7 @@ As the classifier relies on a set of carefully picked features from the match da
  * Timeline : https://developer.riotgames.com/api-methods/#match-v4/GET_getMatchTimeline
 
 ```
-from roleml import roleml
+import roleml
 roleml.predict(match, timeline)
 ```
 Output : 
@@ -99,7 +99,7 @@ roleml.add_cass_predicited_roles(match)
 Working example : 
 
 ```
-from roleml import roleml
+import roleml
 import cassiopeia as cass
 
 cass.set_riot_api_key("RGAPI-")
