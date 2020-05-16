@@ -40,16 +40,16 @@ roleml.predict(match, timeline)
 Output : 
 ```
 {
- 1: 'MIDDLE_SOLO',
- 2: 'BOTTOM_DUO_CARRY',
- 3: 'BOTTOM_DUO_SUPPORT',
- 4: 'TOP_SOLO',
- 5: 'JUNGLE_NONE',
- 6: 'TOP_SOLO',
- 7: 'JUNGLE_NONE',
- 8: 'BOTTOM_DUO_CARRY',
- 9: 'BOTTOM_DUO_SUPPORT',
- 10: 'MIDDLE_SOLO'
+ 1: 'mid',
+ 2: 'bot',
+ 3: 'supp',
+ 4: 'top',
+ 5: 'jungle',
+ 6: 'top',
+ 7: 'jungle',
+ 8: 'bot',
+ 9: 'supp',
+ 10: 'mid'
 }
 ```
 
@@ -80,6 +80,56 @@ fixed_and_augmented_match, fixed_and_augmented_timeline =
 	roleml.fix_and_augment_game_and_timeline(game, timeline, True, True)
 ```
 
+
+You can also change the label output : 
+```
+roleml.set_label_type("full")
+```
+ * clean (default)
+```
+{
+ 1: 'mid',
+ 2: 'bot',
+ 3: 'supp',
+ 4: 'top',
+ 5: 'jungle',
+ 6: 'top',
+ 7: 'jungle',
+ 8: 'bot',
+ 9: 'supp',
+ 10: 'mid'
+}
+```
+ * full
+```
+{
+ 1: 'MIDDLE_SOLO',
+ 2: 'BOTTOM_DUO_CARRY',
+ 3: 'BOTTOM_DUO_SUPPORT',
+ 4: 'TOP_SOLO',
+ 5: 'JUNGLE_NONE',
+ 6: 'TOP_SOLO',
+ 7: 'JUNGLE_NONE',
+ 8: 'BOTTOM_DUO_CARRY',
+ 9: 'BOTTOM_DUO_SUPPORT',
+ 10: 'MIDDLE_SOLO'
+}
+```
+ * rgapi
+```
+{
+ 1: {"lane":"MIDDLE","role":"SOLO"},
+ 2: {"lane":"BOTTOM","role":"DUO_CARRY"},
+ 3: {"lane":"BOTTOM","role":"DUO_SUPPORT"},
+ 4: {"lane":"TOP","role":"SOLO"},
+ 5: {"lane":"JUNGLE","role":"NONE"},
+ 6: {"lane":"TOP","role":"SOLO"},
+ 7: {"lane":"JUNGLE","role":"NONE"},
+ 8: {"lane":"BOTTOM","role":"DUO_CARRY"},
+ 9: {"lane":"BOTTOM","role":"DUO_SUPPORT"},
+ 10: {"lane":"MIDDLE","role":"SOLO"}
+}
+```
 
 #### Cassiopeia support
 
