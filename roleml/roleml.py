@@ -250,8 +250,10 @@ def get_features(match, timeline, cassiopeia_dicts = False):
         # Summoner spells
         participant_features.update(spells)
         if participant[feature_names["spell1Id"]] > 0:
-            participant_features["spell-" + str(participant[feature_names["spell1Id"]])] = 1
-            participant_features["spell-" + str(participant[feature_names["spell2Id"]])] = 1
+            for feature_name in ("spell1Id", "spell2Id"):
+                spell_name = "spell-{}".format(participant[feature_names[feature_name]])
+                if spell_name in spells:
+                    participant_features[spell_name] = 1
 
         # Player stats
         participant_features.update(player_stats[participant_id])
