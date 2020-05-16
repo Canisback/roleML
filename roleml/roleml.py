@@ -13,6 +13,13 @@ from .utils import exceptions
 role_composition = {"JUNGLE_NONE", "TOP_SOLO", "MIDDLE_SOLO", "BOTTOM_DUO_CARRY", "BOTTOM_DUO_SUPPORT"}
 clean_roles = {"JUNGLE_NONE": 'jungle', "TOP_SOLO": 'top', "MIDDLE_SOLO": 'mid',
                "BOTTOM_DUO_CARRY": 'bot', "BOTTOM_DUO_SUPPORT": 'supp'}
+rgapi_roles = {
+    "JUNGLE_NONE": {"lane":"JUNGLE","role":"NONE"}, 
+    "TOP_SOLO": {"lane":"TOP","role":"SOLO"}, 
+    "MIDDLE_SOLO": {"lane":"MIDDLE","role":"SOLO"},
+    "BOTTOM_DUO_CARRY": {"lane":"BOTTOM","role":"DUO_CARRY"}, 
+    "BOTTOM_DUO_SUPPORT": {"lane":"BOTTOM","role":"DUO_SUPPORT"}
+}
 
 # Init spells
 spells = {'spell-21': 0, 'spell-1': 0, 'spell-14': 0, 'spell-3': 0, 'spell-4': 0, 'spell-6': 0, 'spell-7': 0,
@@ -109,6 +116,15 @@ underUsedItems = {
 #       Need to set up an external resource to call for item frequencies for the current patch.
 #       Even better would be for each patch.
 
+
+_label_type = "clean"
+
+def set_label_type(label_type):
+    global _label_type
+    if not label_type in ["clean","rgapi","full"]:
+        raise exceptions.WrongLabel
+    else:
+        _label_type = label_type
 
 # Loading the model
 if _IS_32BIT:
@@ -286,8 +302,18 @@ def predict(match, timeline, cassiopeia_dicts=False):
     df = df.set_index(df["participantId"])
 
     participant_roles = df["role"].to_dict()
-
-    return {k: clean_roles[participant_roles[k]] for k in participant_roles}
+    
+    print(_label_type)
+    if _label_type == "clean":
+        return {k: clean_roles[participant_roles[k]] for k in participant_roles}
+    elif _label_type == "rgapi":
+        return {k: rgapi_roles[participant_roles[k]] for k in participant_roles}
+    elif _label_type == "full":
+        return {k: participant_roles[k] for k in participant_roles}
+    else:
+        raise Exception("Don't mess with eh label")
+        
+        
 
 
 # Fixes participantFrames so that key is participantId
