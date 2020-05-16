@@ -311,7 +311,7 @@ def predict(match, timeline, cassiopeia_dicts=False):
     elif _label_type == "full":
         return {k: participant_roles[k] for k in participant_roles}
     else:
-        raise Exception("Don't mess with eh label")
+        raise Exception("Don't mess with the label")
         
         
 

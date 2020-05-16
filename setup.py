@@ -12,7 +12,7 @@ setup(
   package_data={
     '': ['*.sav'],
   },
-  version = '0.1.15',
+  version = '0.1.16',
   description = 'ML classifier for role in Riot API LoL matches',
   long_description=long_description,
   long_description_content_type='text/markdown',
@@ -22,7 +22,7 @@ setup(
   keywords = ['Riot API', 'python', 'machine learning','role','League of Legends', ' classifier'],
   classifiers = [],
   install_requires=[
-      "scikit-learn >= 0.22.1",
+      "scikit-learn >= 0.23.0",
       "numpy >= 1.16.2",
       "shapely",
       "pandas"
