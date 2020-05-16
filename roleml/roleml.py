@@ -5,6 +5,8 @@ import pandas as pd
 import os
 from sklearn.utils import _IS_32BIT
 
+import warnings
+
 from .utils import exceptions
 
 # Initializing all the roles accepted
@@ -254,6 +256,8 @@ def get_features(match, timeline, cassiopeia_dicts = False):
                 spell_name = "spell-{}".format(participant[feature_names[feature_name]])
                 if spell_name in spells:
                     participant_features[spell_name] = 1
+                else:
+                    warnings.warn("This game seems to be very old. The model has never been tested for very old games, use with caution.")
 
         # Player stats
         participant_features.update(player_stats[participant_id])
