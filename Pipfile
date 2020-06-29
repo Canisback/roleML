@@ -1,0 +1,18 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+cassiopeia = "*"
+pytest = "*"
+
+[packages]
+scikit-learn = ">=0.22.1"
+numpy = ">=1.16.2"
+pandas = "*"
+Shapely = "*"
+joblib = "*"
+
+[requires]
+python_version = "3.8"
