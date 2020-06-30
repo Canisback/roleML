@@ -74,7 +74,7 @@ def predict(match, timeline, cassiopeia_dicts=False) -> dict:
         raise exceptions.WrongLabel
 
 
-def fix_game(match, timeline, fix_timeline=False):
+def fix_game(match, timeline, fix_timeline=True):
     """Fixes a game by inserting the right roles.
 
     Args:
