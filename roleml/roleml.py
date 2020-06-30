@@ -1,5 +1,6 @@
 import os
 import struct
+import warnings
 
 import joblib
 
@@ -23,7 +24,12 @@ def change_role_formatting(label_type: str):
         _role_format = label_type
 
 
-# Loading the model
+def set_label_type(label_type):
+    warnings.warn("change_role_formatting() should be used instead of set_label_type()", DeprecationWarning)
+    change_role_formatting(label_type)
+
+
+# Loading the model, ideally should be ghost loaded for faster package import
 # 8 * struct.calcsize("P") == 32 tells is if the system is 32 or 64 bits
 if 8 * struct.calcsize("P") == 32:
     model = joblib.load(os.path.join(os.path.dirname(__file__), "data", "role_identification_model_32bits.sav"))
@@ -102,7 +108,7 @@ def fix_game(match, timeline, fix_timeline=False):
             opponent_id = possible_opponents[0]["participantId"]
 
             for frame in timeline["frames"]:
-                frame = _fix_frame(frame)
+                frame = _fix_frame_keys(frame)
                 participant_frame = frame["participantFrames"][str(participant_id)]
                 opponent_frame = frame["participantFrames"][str(opponent_id)]
 
@@ -125,8 +131,24 @@ def add_cass_predicted_roles(match):
 
 
 # Fixes participantFrames so that key is participantId
-def _fix_frame(frame):
+def _fix_frame_keys(frame):
     fixed_frame = {"participantFrames": {}, "events": frame["events"], "timestamp": frame["timestamp"]}
     for k, v in frame["participantFrames"].items():
         fixed_frame["participantFrames"][str(v["participantId"])] = v
     return fixed_frame
+
+
+def fix_frame(frame):
+    warnings.warn(
+        "fix_frame() should likely be re-implemented in your own package and not imported.", DeprecationWarning
+    )
+    return _fix_frame_keys(frame)
+
+
+def fix_and_augment_game_and_timeline(game, timeline, upgrade_participant=False, upgrade_timeline=False):
+    warnings.warn(
+        "fix_game() should be used instead and this function will disappear in a future version."
+        "Its functionality is not supported anymore.", DeprecationWarning
+    )
+
+    return fix_game(game, timeline, fix_timeline=upgrade_timeline)

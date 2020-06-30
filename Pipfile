@@ -8,11 +8,11 @@ cassiopeia = "*"
 pytest = "*"
 
 [packages]
-scikit-learn = ">=0.22.1"
 numpy = ">=1.16.2"
 pandas = "*"
 Shapely = "*"
 joblib = "*"
+scikit-learn = "==0.23.0"
 
 [requires]
 python_version = "3.8"

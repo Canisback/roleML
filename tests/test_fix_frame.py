@@ -1,4 +1,4 @@
-from roleml.roleml import _fix_frame
+from roleml.roleml import _fix_frame_keys
 
 
 def key_equals_participant_id(frame):
@@ -10,7 +10,7 @@ def test_fix_frame_unordered(clean_game_na):
         assert not key_equals_participant_id(frame)
 
     for frame in clean_game_na["game"]["timeline"]["frames"]:
-        assert key_equals_participant_id(_fix_frame(frame))
+        assert key_equals_participant_id(_fix_frame_keys(frame))
 
 
 def test_fix_frame_ordered(clean_game_euw):
@@ -18,4 +18,4 @@ def test_fix_frame_ordered(clean_game_euw):
         assert key_equals_participant_id(frame)
 
     for frame in clean_game_euw["game"]["timeline"]["frames"]:
-        assert key_equals_participant_id(_fix_frame(frame))
+        assert key_equals_participant_id(_fix_frame_keys(frame))
