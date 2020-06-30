@@ -31,5 +31,5 @@ def test_fix_full(clean_game_na):
 
 
 def test_opponent_not_found(opponent_not_found_game):
-    with pytest.raises(ValueError):
+    with pytest.raises(roleml.exceptions.NoOpponentFoundException):
         roleml.fix_game(opponent_not_found_game["game"], opponent_not_found_game["game"]["timeline"], fix_timeline=True)

@@ -84,6 +84,9 @@ def fix_game(match, timeline, fix_timeline=True):
 
     Returns:
         match, timeline: the match and timeline with the predicted roles.
+
+    Raises:
+        NoOpponentFound if a player’s opponent could not be found
     """
     true_roles = predict(match, timeline)
 
@@ -103,7 +106,7 @@ def fix_game(match, timeline, fix_timeline=True):
             ]
 
             if len(possible_opponents) != 1:
-                raise ValueError("Too many or too few opponents found.")
+                raise exceptions.NoOpponentFoundException("Too many or too few opponents found.")
 
             opponent_id = possible_opponents[0]["participantId"]
 
