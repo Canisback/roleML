@@ -7,7 +7,6 @@ with open(path.join(this_directory, "README.md"), encoding="utf-8") as f:
 
 
 setup(
-<<<<<<< HEAD
     name="roleml",
     packages=find_packages(),
     package_data={"": ["*.sav", "*.json"],},
