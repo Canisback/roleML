@@ -1,7 +1,10 @@
-from roleml.roleml import(
+import roleml.exceptions
+from roleml.roleml import (
     predict,
+    fix_game,
+    add_cass_predicted_roles,
+    change_role_formatting,
+    set_label_type,
+    fix_frame,
     fix_and_augment_game_and_timeline,
-    add_cass_predicited_roles,
-    set_label_type
 )
-from roleml.utils import exceptions
