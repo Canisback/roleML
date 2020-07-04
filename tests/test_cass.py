@@ -2,6 +2,9 @@ skip_cass = False
 
 try:
     import cassiopeia
+    from cassiopeia.core.match import MatchData, Match, TimelineData, Timeline
+    from cassiopeia.dto.match import MatchDto, TimelineDto
+    from cassiopeia.transformers.match import MatchTransformer
 except ModuleNotFoundError:
     import warnings
 
@@ -9,9 +12,6 @@ except ModuleNotFoundError:
     # TODO Quit
     # assert False
     skip_cass = True
-    from cassiopeia.core.match import MatchData, Match, TimelineData, Timeline
-    from cassiopeia.dto.match import MatchDto, TimelineDto
-    from cassiopeia.transformers.match import MatchTransformer
 
 
 import pytest
