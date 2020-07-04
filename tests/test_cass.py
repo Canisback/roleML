@@ -1,3 +1,5 @@
+skip_cass = False
+
 try:
     import cassiopeia
 except ModuleNotFoundError:
@@ -5,7 +7,8 @@ except ModuleNotFoundError:
 
     warnings.warn("Cassiopeia support was not tested because of pytest/travis")
     # TODO Quit
-    assert False
+    # assert False
+    skip_cass = True
 
 import pytest
 from cassiopeia.core.match import MatchData, Match, TimelineData, Timeline
@@ -30,18 +33,20 @@ def create_cass_match(data):
 
     return match
 
-
+@pytest.mark.skipif(skip_cass, reason="Travis")
 def test_predict_1(clean_game_na):
     match = create_cass_match(clean_game_na["game"])
     assert clean_game_na["expected_roles"] == roleml.predict(match.to_dict(), match.timeline.to_dict(), True)
 
 
+@pytest.mark.skipif(skip_cass, reason="Travis")
 def test_predict_2(clean_game_euw):
     match = create_cass_match(clean_game_euw["game"])
 
     assert clean_game_euw["expected_roles"] == roleml.predict(match.to_dict(), match.timeline.to_dict(), True)
 
 
+@pytest.mark.skipif(skip_cass, reason="Travis")
 def test_predict_match_too_short(short_game):
     match = create_cass_match(short_game["game"])
 
@@ -49,6 +54,7 @@ def test_predict_match_too_short(short_game):
         roleml.predict(match.to_dict(), match.timeline.to_dict(), True)
 
 
+@pytest.mark.skipif(skip_cass, reason="Travis")
 def test_add_cass_predicted_roles(clean_game_na):
     match = create_cass_match(clean_game_na["game"])
 
