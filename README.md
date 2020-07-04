@@ -61,26 +61,18 @@ The match needs to be at least 12 minutes long, an exception will be raised else
 
 ### Options
 
-Fix match data according to the new participant roles : 
+Add the predicted role to the participant and fix the timeline data : 
 ```
 fixed_match, fixed_timeline = 
-	roleml.fix_and_augment_game_and_timeline(game, timeline)
+	roleml.fix_game(game, timeline)
 ```
-Add role to participant and goldDiffPerMinDeltas to participant timeline : 
+
+You can turn off the timeline fix : 
 ```
-fixed_and_augmented_match, fixed_timeline = 
-	roleml.fix_and_augment_game_and_timeline(game, timeline, True)
+fixed_match, fixed_timeline = 
+	roleml.fix_game(game, timeline, False)
 ```
-Add diffs to each participant frame in timeline : 
-```
-fixed_match, fixed_and_augmented_timeline = 
-	roleml.fix_and_augment_game_and_timeline(game, timeline, False, True)
-```
-Fix and augment both : 
-```
-fixed_and_augmented_match, fixed_and_augmented_timeline = 
-	roleml.fix_and_augment_game_and_timeline(game, timeline, True, True)
-```
+
 
 
 You can also change the label output : 
