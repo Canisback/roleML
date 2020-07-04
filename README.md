@@ -75,9 +75,9 @@ fixed_match, fixed_timeline =
 
 
 
-You can also change the label output : 
+You can also change the role format output : 
 ```
-roleml.set_label_type("full")
+roleml.change_role_formatting("full")
 ```
  * clean (default)
 ```
