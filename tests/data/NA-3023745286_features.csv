@@ -1,0 +1,11 @@
+has-item-mostlyUsed-BOTTOM_DUO_CARRY,has-item-mostlyUsed-BOTTOM_DUO_SUPPORT,has-item-mostlyUsed-JUNGLE_NONE,has-item-mostlyUsed-MIDDLE_SOLO,has-item-mostlyUsed-TOP_SOLO,has-item-overUsed-BOTTOM_DUO_CARRY,has-item-overUsed-BOTTOM_DUO_SUPPORT,has-item-overUsed-JUNGLE_NONE,has-item-overUsed-MIDDLE_SOLO,has-item-overUsed-TOP_SOLO,has-item-underUsed-BOTTOM_DUO_CARRY,has-item-underUsed-BOTTOM_DUO_SUPPORT,has-item-underUsed-JUNGLE_NONE,has-item-underUsed-MIDDLE_SOLO,has-item-underUsed-TOP_SOLO,jungleMinionRatio,jungleMinionsKilled,lane-frequency-bot,lane-frequency-jungle,lane-frequency-mid,lane-frequency-top,minionsKilled,most-frequent-bot,most-frequent-jungle,most-frequent-mid,most-frequent-top,participantId,spell-1,spell-11,spell-12,spell-14,spell-21,spell-3,spell-4,spell-6,spell-7
+0,0,0,1,0,0,1,0,0,0,1,1,1,1,1,0.0,0,8,2,0,0,2,1,0,0,0,1,0,0,0,1,0,0,1,0,0
+0,0,0,0,0,0,0,1,0,0,1,1,0,1,1,0.8627450980392157,44,1,7,0,1,7,0,1,0,0,2,0,1,0,0,0,0,1,0,0
+1,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0.0,0,0,1,0,9,49,0,0,0,1,3,0,0,0,1,0,0,1,0,0
+1,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0.0,0,9,0,0,0,50,1,0,0,0,4,0,0,0,0,0,0,1,0,1
+1,0,0,0,0,0,0,0,0,0,1,1,1,0,1,0.0,0,0,1,6,0,34,0,0,1,0,5,0,0,0,1,0,0,1,0,0
+0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0.0,0,0,2,0,8,56,0,0,0,1,6,0,0,0,1,0,0,1,0,0
+1,0,0,0,0,1,0,0,0,0,1,1,1,1,1,0.0,0,8,1,0,0,47,1,0,0,0,7,0,0,0,0,0,0,1,0,1
+0,1,0,0,0,0,1,0,0,0,1,0,1,1,1,0.0,0,8,1,0,0,12,1,0,0,0,8,0,0,0,0,0,1,1,0,0
+0,0,0,0,0,0,0,1,0,1,1,1,1,1,1,0.9722222222222222,35,0,9,0,1,1,0,1,0,0,9,0,1,0,0,0,0,1,0,0
+1,0,0,1,0,0,0,0,0,0,1,1,1,0,1,0.0,0,0,1,8,0,58,0,0,1,0,10,0,0,0,0,1,0,1,0,0
