@@ -303,7 +303,6 @@ def predict(match, timeline, cassiopeia_dicts=False):
 
     participant_roles = df["role"].to_dict()
     
-    print(_label_type)
     if _label_type == "clean":
         return {k: clean_roles[participant_roles[k]] for k in participant_roles}
     elif _label_type == "rgapi":
