@@ -289,7 +289,7 @@ def get_features(match, timeline, cassiopeia_dicts = False):
     return df
 
 
-def predict(match, timeline, cassiopeia_dicts=False):
+def predict(match, timeline, cassiopeia_dicts=False, print_label=False):
     if match["gameDuration"] < 720:
         raise exceptions.MatchTooShort
     if not match["mapId"] == 11:
@@ -303,7 +303,8 @@ def predict(match, timeline, cassiopeia_dicts=False):
 
     participant_roles = df["role"].to_dict()
     
-    print(_label_type)
+    if print_label:
+        print(_label_type)
     if _label_type == "clean":
         return {k: clean_roles[participant_roles[k]] for k in participant_roles}
     elif _label_type == "rgapi":
