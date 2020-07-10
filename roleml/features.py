@@ -143,6 +143,7 @@ def _get_most_frequent_lane(participants_positions):
         for lane in participants_positions[participant_id]:
             if lane is not None:
                 lane_frequency[lane] += 1
+
         most_frequent_lane[participant_id] = max(lane_frequency, key=lane_frequency.get)
 
     return most_frequent_lane

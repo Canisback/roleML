@@ -20,3 +20,8 @@ def test_predict_match_too_short(short_game):
 def test_predict_match_aram(aram_game):
     with pytest.raises(exceptions.IncorrectMap):
         roleml.predict(aram_game["game"], aram_game["game"]["timeline"])
+
+def test_predict_empty_lane_frequency(empty_lane_frequency_game):
+    roleml.predict(empty_lane_frequency_game["game"], empty_lane_frequency_game["game"]["timeline"])
+    assert True
+    

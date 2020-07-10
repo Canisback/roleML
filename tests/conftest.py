@@ -148,3 +148,10 @@ def opponent_not_found_game():
         data = json.load(f)
 
     return TestGame(game=data)
+
+@pytest.fixture
+def empty_lane_frequency_game():
+    with open(os.path.join(os.path.dirname(__file__), "data", "EUW-4664197701.json"), "r") as f:
+        data = json.load(f)
+
+    return TestGame(game=data)
