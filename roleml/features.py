@@ -138,12 +138,11 @@ def _get_positions(timeline: dict):
 def _get_most_frequent_lane(participants_positions):
     most_frequent_lane = {}
     for participant_id in participants_positions:
-        lane_frequency = collections.defaultdict(lambda: 0)
+        lane_frequency = {'bot': 0, 'jungle': 0, 'mid': 0, 'top': 0}
 
         for lane in participants_positions[participant_id]:
             if lane is not None:
                 lane_frequency[lane] += 1
-
         most_frequent_lane[participant_id] = max(lane_frequency, key=lane_frequency.get)
 
     return most_frequent_lane

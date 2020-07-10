@@ -43,7 +43,7 @@ def predict(match, timeline, cassiopeia_dicts=False) -> dict:
     Args:
         match: a MatchDto
         timeline: the associated MatchTimelineDto
-        cassiopeia_dicts: ???
+        cassiopeia_dicts: cassiopeia_dicts: whether or not use cassiopeia feature names
 
     Returns:
         A dictionary mapping participantId to the role defined by _role_format
