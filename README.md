@@ -136,7 +136,7 @@ roleml.predict(match.to_dict(), match.timeline.to_dict(), True)
 A special function allows to add the predicited role in Participants object from Cassiopeia matches : 
 
 ```
-roleml.add_cass_predicited_roles(match)
+roleml.add_cass_predicted_roles(match)
 ```
 
 
@@ -153,7 +153,7 @@ summoner = cass.get_summoner(name="Canisback")
 match = cass.MatchHistory(summoner=summoner, queues={cass.Queue.blind_fives})[0].load()
 match.timeline.load()
 
-roleml.add_cass_predicited_roles(match)
+roleml.add_cass_predicted_roles(match)
 for p in match.participants:
     print(p.predicted_role)
 ```
