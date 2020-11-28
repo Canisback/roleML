@@ -23,6 +23,8 @@ This classifier only works for normal and ranked games on Summoner's Rift.
 
 Note that the range of possible role as been reduced to the 5 most used roles : MIDDLE_SOLO, TOP_SOLO, JUNGLE_NONE, BOTTOM_DUO_CARRY, BOTTOM_DUO_SUPPORT.
 
+> :warning: **Python 3.9 support**: Scikit-learn does not support Python 3.9, and roleML can not work without it. Please use at max Python 3.8 until then.
+
 ***
 ## How to use it
 

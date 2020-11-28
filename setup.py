@@ -10,7 +10,7 @@ setup(
     name="roleml",
     packages=find_packages(),
     package_data={"": ["*.sav", "*.json"],},
-    version="0.2.1",
+    version="0.2.2",
     install_requires=["scikit-learn == 0.23.0", "numpy >= 1.16.2", "shapely", "pandas", "joblib"],
     description="ML classifier for role in Riot API LoL matches",
     long_description=long_description,
