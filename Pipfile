@@ -12,7 +12,7 @@ numpy = ">=1.16.2"
 pandas = "*"
 Shapely = "*"
 joblib = "*"
-scikit-learn = "==0.23.0"
+scikit-learn = "==0.24.1"
 
 [requires]
-python_version = "3.8"
+python_version = "3.9"

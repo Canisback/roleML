@@ -34,7 +34,11 @@ def set_label_type(label_type):
 if 8 * struct.calcsize("P") == 32:
     model = joblib.load(os.path.join(os.path.dirname(__file__), "data", "role_identification_model_32bits.sav"))
 else:
-    model = joblib.load(os.path.join(os.path.dirname(__file__), "data", "role_identification_model_64bits.sav"))
+    import sklearn
+    if sklearn.__version__ == "0.24.1":
+        model = joblib.load(os.path.join(os.path.dirname(__file__), "data", "role_identification_model_64bits_39.sav"))
+    else:
+        model = joblib.load(os.path.join(os.path.dirname(__file__), "data", "role_identification_model_64bits.sav"))
 
 
 def predict(match, timeline, cassiopeia_dicts=False) -> dict:
