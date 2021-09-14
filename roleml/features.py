@@ -26,7 +26,7 @@ def _get_features(match, timeline, cassiopeia_dicts=False):
         }
     else:
         feature_names = {
-            "participantId": "id",
+            "participantId": "participantId",
             "spell1Id": "summonerSpellDId",
             "spell2Id": "summonerSpellFId",
             "minionsKilled": "creepScore",
