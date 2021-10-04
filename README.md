@@ -9,6 +9,8 @@
 
 ***
 
+Match V5 position fields are as good as RoleML, which should only be used on data from match V4.
+
 ## League of Legends Role Classifier
 
 This project aims to provide to Riot Games API users, especially those using match data, a better classifier for role. It is known that the internal role classifier give a lot of misclassifications, making the whole thing not enough reliable for any production application.
